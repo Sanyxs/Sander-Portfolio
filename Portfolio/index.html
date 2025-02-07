@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio Carousel</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #1a202c;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
+        .carousel {
+            display: flex;
+            align-items: center;
+            position: relative;
+            width: 600px;
+            height: 300px;
+            overflow: hidden;
+        }
+        .carousel img {
+            max-width: 150px;
+            max-height: 120px;
+            transition: all 0.5s;
+            opacity: 0.5;
+            margin: 0 10px;
+            border-radius: 10px;
+            object-fit: contain;
+        }
+        .carousel img.active {
+            max-width: 250px;
+            max-height: 200px;
+            opacity: 1;
+        }
+        .nav-button {
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+        .nav-button.left {
+            left: 10px;
+        }
+        .nav-button.right {
+            right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Portfolio</h1>
+    <div class="carousel">
+        <button class="nav-button left" onclick="prevSlide()">&#9665;</button>
+        <img src="Milly.png" class="">
+        <img src="Milana.png" class="active">
+        <img src="Traffic.png" class="">
+        <button class="nav-button right" onclick="nextSlide()">&#9655;</button>
+    </div>
+   <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        let index = 1;
+        const images = document.querySelectorAll(".carousel img");
+        const prevButton = document.querySelector(".nav-button.left");
+        const nextButton = document.querySelector(".nav-button.right");
+
+        function updateCarousel() {
+            images.forEach((img, i) => {
+                img.classList.remove("active");
+                if (i === index) {
+                    img.classList.add("active");
+                }
+            });
+        }
+
+        function nextSlide() {
+            index = (index + 1) % images.length;
+            updateCarousel();
+        }
+
+        function prevSlide() {
+            index = (index - 1 + images.length) % images.length;
+            updateCarousel();
+        }
+
+        prevButton.addEventListener("click", prevSlide);
+        nextButton.addEventListener("click", nextSlide);
+    });
+</script>
+
+</body>
+</html>
